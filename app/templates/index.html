@@ -1,13 +1,50 @@
 <html>
     <head>
         <title>Flask-SocketIO-Chat</title>
+        <style>
+            input[type="submit"] {
+                background-color: #900;
+                border: 1px solid #900;
+                border-radius: 5px;
+                color: #fff;
+                cursor: pointer;
+                display: inline-block;
+                font-size: 0.9375rem;
+                font-weight: 700;
+                height: auto;
+                overflow: hidden;
+                padding: 0.2rem 1.25rem 0.25rem;
+                text-align: center;
+                text-overflow: ellipsis;
+                transition: border-color 0.3s ease 0s, background 0.3s linear 0s, color 0.3s linear 0s;
+                white-space: nowrap;
+            }
+            input[type="text"] {
+                border-radius: 5px;
+                background-color: #fff;
+                border-color: #f0f0f0;
+                border-style: solid;
+                border-width: 0.125rem;
+                box-shadow: none;
+                box-sizing: border-box;
+                color: #000;
+                display: block;
+                font-family: inherit;
+                font-size: 0.9375rem;
+                height: 2.60938rem;
+                margin: 0;
+                padding: 0.57813rem;
+                transition: all 0.15s linear 0s;
+                width: 200px;
+            }
+        </style>
     </head>
     <body>
-        <h1>Flask-SocketIO-Chat</h1>
+        <h1>Chatty</h1>
         <form method="POST">
             {{ form.hidden_tag() }}
             {{ form.name.label }}: {{ form.name() }} {% for error in form.name.errors %}{{ error }}{% endfor %}<br>
-            {{ form.room.label }}: {{ form.room() }} {% for error in form.room.errors %}{{ error }}{% endfor %}<br>
+            {{ form.room.label }}: {{ form.room() }} {% for error in form.room.errors %}{{ error }}{% endfor %}<br><br>
             {{ form.submit() }}
         </form>
     </body>

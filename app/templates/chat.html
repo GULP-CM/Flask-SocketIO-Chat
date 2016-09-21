@@ -40,9 +40,72 @@
                 });
             }
         </script>
+
+        <style>
+            input[type="submit"] {
+                background-color: #900;
+                border: 1px solid #900;
+                border-radius: 5px;
+                color: #fff;
+                cursor: pointer;
+                display: inline-block;
+                font-size: 0.9375rem;
+                font-weight: 700;
+                height: auto;
+                overflow: hidden;
+                padding: 0.2rem 1.25rem 0.25rem;
+                text-align: center;
+                text-overflow: ellipsis;
+                transition: border-color 0.3s ease 0s, background 0.3s linear 0s, color 0.3s linear 0s;
+                white-space: nowrap;
+            }
+            textarea, input {
+                line-height: 1.5;
+                margin-bottom: 1px !important;
+                background-color: #fff;
+                border-color: #f0f0f0;
+                border-radius: 5px;
+                border-style: solid;
+                border-width: 0.125rem;
+                box-shadow: none;
+                box-sizing: border-box;
+                color: #000;
+                display: block;
+                font-family: inherit;
+                font-size: 0.9375rem;
+                margin: 0 0 1.15625rem;
+                padding: 0.57813rem;
+                transition: all 0.15s linear 0s;
+                width: 600px;
+            }
+            textarea {
+                height: 300px;
+            }
+            input {
+                height: 2.60938rem;
+            }
+            a {
+                background-color: #900;
+                border: 1px solid #900;
+                border-radius: 5px;
+                color: #fff;
+                cursor: pointer;
+                display: inline-block;
+                font-size: 0.9375rem;
+                font-weight: 700;
+                height: auto;
+                overflow: hidden;
+                padding: 0.2rem 1.25rem 0.25rem;
+                text-align: center;
+                text-overflow: ellipsis;
+                transition: border-color 0.3s ease 0s, background 0.3s linear 0s, color 0.3s linear 0s;
+                white-space: nowrap;
+                text-decoration: none;
+            }
+        </style>
     </head>
     <body>
-        <h1>Flask-SocketIO-Chat: {{ room }}</h1>
+        <h1>Chatty - room: {{ room }}</h1>
         <textarea id="chat" cols="80" rows="20"></textarea><br><br>
         <input id="text" size="80" placeholder="Enter your message here"><br><br>
         <a href="#" onclick="leave_room();">Leave this room</a>
