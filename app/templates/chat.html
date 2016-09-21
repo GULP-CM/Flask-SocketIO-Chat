@@ -22,7 +22,11 @@
                     var code = e.keyCode || e.which;
                     if (code == 13) {
                         text = $('#text').val();
-                        $('#text').val('');
+                        if (text.indexOf("#") == 0 && text.indexOf(" ") > 0) {
+                            $('#text').val(text.substr(0, text.indexOf(" ") + 1));
+                        } else {
+                            $('#text').val('');
+                        };
                         socket.emit('text', {msg: text});
                     }
                 });
