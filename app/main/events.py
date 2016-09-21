@@ -2,6 +2,8 @@ import uuid
 
 from flask import session
 from flask_socketio import emit, join_room, leave_room
+from markupsafe import Markup
+
 from .. import socketio
 
 active_users = {}
@@ -27,14 +29,15 @@ def text(message):
     The message is sent to all people in the room."""
     msg = message['msg']
     if msg.split(' ', 1)[0][0:1] == "#":
-        to = msg.split(' ', 1)[0][1:]
-        msg = msg.split(' ', 1)[1]
-        if to in active_users:
-            emit('message', {'msg': '(From) ' + session.get('name') + ': ' + msg}, room=active_users[to])
-            emit('message', {'msg': '(To) ' + to + ': ' + msg})
+        if len(msg.split(' ')) > 1:
+            to = msg.split(' ', 1)[0][1:]
+            msg = msg.split(' ', 1)[1]
+            if to in active_users:
+                emit('message', {'msg': '(To) ' + to + ': ' + Markup.escape(msg)})
+                emit('message', {'msg': '(From) ' + session.get('name') + ': ' + Markup.escape(msg)}, room=active_users[to])
     else:
         room = session.get('room')
-        emit('message', {'msg': session.get('name') + ': ' + msg}, room=room)
+        emit('message', {'msg': session.get('name') + ': ' + Markup.escape(msg)}, room=room)
 
 
 @socketio.on('left', namespace='/chat')

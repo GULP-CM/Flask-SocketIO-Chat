@@ -3,6 +3,7 @@
         <title>Flask-SocketIO-Chat: {{ room }}</title>
         <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/emojify.js/1.1.0/js/emojify.min.js"></script>
         <script type="text/javascript" charset="utf-8">
             var socket;
             $(document).ready(function(){
@@ -11,12 +12,15 @@
                     socket.emit('joined', {});
                 });
                 socket.on('status', function(data) {
-                    $('#chat').val($('#chat').val() + '<' + data.msg + '>\n');
+                    $('#chat').append('&lt;' + data.msg + '&gt;<br>')
+                    emojify.run();
                     $('#chat').scrollTop($('#chat')[0].scrollHeight);
                 });
                 socket.on('message', function(data) {
-                    $('#chat').val($('#chat').val() + data.msg + '\n');
+                    $('#chat').append(data.msg + '<br>')
+                    emojify.run();
                     $('#chat').scrollTop($('#chat')[0].scrollHeight);
+
                 });
                 $('#text').keypress(function(e) {
                     var code = e.keyCode || e.which;
@@ -40,7 +44,10 @@
                 });
             }
         </script>
-
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/emojify.js/1.1.0/css/basic/emojify.min.css" />
+        <style>
+            .emoji { width: 1.5em; height: 1.5em; display: inline-block; margin-bottom: +.25em; background-size: 1.5em; }
+        </style>
         <style>
             input[type="submit"] {
                 background-color: #900;
@@ -106,8 +113,24 @@
     </head>
     <body>
         <h1>Chatty - room: {{ room }}</h1>
-        <textarea id="chat" cols="80" rows="20"></textarea><br><br>
+        <div id="chat" style="overflow:scroll; width:800px; height:400px;"></div>
         <input id="text" size="80" placeholder="Enter your message here"><br><br>
         <a href="#" onclick="leave_room();">Leave this room</a>
     </body>
+    <script>
+        emojify.setConfig({
+
+            emojify_tag_type : 'div',           // Only run emojify.js on this element
+            only_crawl_id    : null,            // Use to restrict where emojify.js applies
+            img_dir          : 'static/images/emoji',  // Directory for emoji images
+            ignored_tags     : {                // Ignore the following tags
+                'SCRIPT'  : 1,
+                'TEXTAREA': 1,
+                'A'       : 1,
+                'PRE'     : 1,
+                'CODE'    : 1
+            }
+        });
+        emojify.run();
+    </script>
 </html>
